@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us List</title>
+</head>
+<body>
+    <h1>Contact Us List</h1>
+    <ul>
+        {% for contact in contacts %}
+            <li>
+                ID: {{ contact.id }}<br>
+                Email From: {{ contact.email_from }}<br>
+                Subject: {{ contact.subject }}<br>
+                Message: {{ contact.message }}
+            </li>
+        {% empty %}
+            <li>No contacts found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+[
+  {
+    "model": "currency.contactus",
+    "pk": 1,
+    "fields": {
+      "email_from": "ffffkltbn@example.com",
+      "subject": "Vadim Mihaylov",
+      "message": "Example Message 1"
+    }
+  },
+  {
+    "model": "currency.contactus",
+    "pk": 2,
+    "fields": {
+      "email_from": "kilomino@example.com",
+      "subject": "Ivan Kyznecov",
+      "message": "Example Message 2"
+    }
+  },
+  {
+    "model": "currency.contactus",
+    "pk": 3,
+    "fields": {
+      "email_from": "milon@example.com",
+      "subject": "Olga Kyznecova",
+      "message": "Example Message 3"
+    }
+  },
+  {
+    "model": "currency.contactus",
+    "pk": 4,
+    "fields": {
+      "email_from": "fillon@example.com",
+      "subject": "Filip Shoxov",
+      "message": "Example Message 4"
+    }
+  }
+]
