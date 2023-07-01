@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Rate List
+{% endblock title %}
+
+{% block content %}
+    <h1>Rate List</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Buy</th>
+            <th>Sell</th>
+            <th>Created</th>
+            <th>Currency</th>
+            <th>Source</th>
+        </tr>
+        {% for rate in rates %}
+            <tr>
+                <td>{{ rate.id }}</td>
+                <td>{{ rate.buy }}</td>
+                <td>{{ rate.sell }}</td>
+                <td>{{ rate.created }}</td>
+                <td>{{ rate.currency }}</td>
+                <td>{{ rate.source }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="6">No rates found.</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}
