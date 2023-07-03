@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Contact Us List</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Contact Us List
+{% endblock title %}
+
+{% block content %}
     <h1>Contact Us List</h1>
     <table>
         <tr>
@@ -34,5 +26,4 @@
             </tr>
         {% endfor %}
     </table>
-</body>
-</html>
+{% endblock content %}
