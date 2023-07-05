@@ -14,7 +14,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Rate',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                                           primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
                 ('buy', models.DecimalField(decimal_places=2, max_digits=6)),
                 ('sell', models.DecimalField(decimal_places=2, max_digits=6)),
                 ('created', models.DateTimeField()),

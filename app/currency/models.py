@@ -8,6 +8,7 @@ class Rate(models.Model):
     currency = models.CharField(max_length=3)  # usd, eur
     source = models.CharField(max_length=68)
 
+
 class ContactUs(models.Model):
     email_from = models.EmailField()
     subject = models.CharField(max_length=100)
