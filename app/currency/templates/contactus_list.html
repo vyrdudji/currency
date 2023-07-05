@@ -1,22 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Contact Us List</title>
-</head>
-<body>
-    <h1>Contact Us List</h1>
-    <ul>
-        {% for contact in contacts %}
-            <li>
-                ID: {{ contact.id }}<br>
-                Email From: {{ contact.email_from }}<br>
-                Subject: {{ contact.subject }}<br>
-                Message: {{ contact.message }}
-            </li>
-        {% empty %}
-            <li>No contacts found.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
 
+{% block title %}
+    Contact Us List
+{% endblock title %}
+
+{% block content %}
+    <h1>Contact Us List</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Email From</th>
+            <th>Subject</th>
+            <th>Message</th>
+        </tr>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.email_from }}</td>
+                <td>{{ contact.subject }}</td>
+                <td>{{ contact.message }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No contacts found.</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}
