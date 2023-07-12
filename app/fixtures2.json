@@ -1,0 +1,47 @@
+[
+  {
+    "model": "currency.source",
+    "fields": {
+      "source_url": "https://www.privatbank.ua/",
+      "name": "PrivatBank",
+      "telephone": "380931234567",
+      "address_change": "Address 1"
+    }
+  },
+  {
+    "model": "currency.source",
+    "fields": {
+      "source_url": "https://www.oshadbank.ua/",
+      "name": "OshadBank",
+      "telephone": "380951234567",
+      "address_change": "Address 2"
+    }
+  },
+  {
+    "model": "currency.source",
+    "fields": {
+      "source_url": "https://www.raiffeisenbank.ua/",
+      "name": "RaiffeisenBank",
+      "telephone": "380981234567",
+      "address_change": "Address 3"
+    }
+  },
+  {
+    "model": "currency.source",
+    "fields": {
+      "source_url": "https://www.ukrsibbank.com/",
+      "name": "UkrSibBank",
+      "telephone": "380661234567",
+      "address_change": "Address 4"
+    }
+  },
+  {
+    "model": "currency.source",
+    "fields": {
+      "source_url": "https://www.pumb.ua/",
+      "name": "PUMB",
+      "telephone": "380671234567",
+      "address_change": "Address 5"
+    }
+  }
+]
