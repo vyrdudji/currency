@@ -1,14 +1,9 @@
 <p>
     <a href="/admin/">Admin Panel</a>
-    <a href="/hello-world/">Hello World</a>
-    <a href="/rate/list/">Rates</a>
-    <a href="/rate/create/">Create rates</a><br>
-    <a href="/contactus/list/">Contact list</a>
-    <a href="/contactus/create/">Create contact</a>
-    <a href="/source/list/">Source</a>
-    <a href="/source/create/">Create source</a>
-
-    {# <a href="/rate/list/">Rates</a> #}
-    {# <a href="/rate/list/">Rates</a> #}
-    {# <a href="/template/">Template</a> #}
+    <a href="{% url 'currency:rate_list' %}">Rates</a>
+    <a href="{% url 'currency:rate_create' %}">Create rates</a><br>
+    <a href="{% url 'currency:contactus_list' %}">Contact list</a>
+    <a href="{% url 'currency:contactus_create' %}">Create contact</a>
+    <a href="{% url 'currency:source_list' %}">Source</a>
+    <a href="{% url 'currency:source_create' %}">Create source</a>
 </p>
