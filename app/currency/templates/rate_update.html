@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Create Source
+    Update Rate
 {% endblock title %}
 
 {% block content %}
-    <h1>Create Source</h1>
+    Update Rate Form
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
     <p></p>
-    <a href="{% url 'currency:source_list' %}">Back to Source List</a>
+    <a href="{% url 'currency:rate_list' %}">Back to Source List</a>
+
 {% endblock content %}

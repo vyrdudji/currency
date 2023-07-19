@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Create Contact Us
+    Delete Contact Us
 {% endblock title %}
 
 {% block content %}
-    <h1>Create Contact Us</h1>
+    Are you sure you want to delete rate with id: {{ object.id }}?
+
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <button type="submit">Yes, delete!</button>
     </form>
-    <p></p>
     <a href="{% url 'currency:contactus_list' %}">Back to Source List</a>
+
 {% endblock content %}
