@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Contactus Details
+{% endblock title %}
+
+{% block content %}
+        Id: {{ contact.id }} <br>
+        Email From: {{ contact.email_from }}  <br>
+        Subject: {{ contact.subject }} <br>
+        Message: {{ contact.message }} <br>
+    <p></p>
+    <a href="{% url 'currency:contactus_list' %}">Back to Source List</a>
+{% endblock content %}

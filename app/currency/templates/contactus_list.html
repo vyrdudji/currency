@@ -41,7 +41,7 @@
     <h2>Create Contact Us</h2>
     <form method="post" action="{% url 'currency:contactus_create' %}">
         {% csrf_token %}
-        {{ source_form.as_p }}
-        <button type="submit">Create</button>
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
     </form>
 {% endblock content %}
