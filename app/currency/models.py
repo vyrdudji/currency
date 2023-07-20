@@ -16,3 +16,11 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return self.email_from
+
+
+class Source(models.Model):
+    source_url = models.CharField(max_length=255)
+    name = models.CharField(max_length=64)
+    telephone = models.CharField(max_length=12)
+    address_change = models.CharField(max_length=255)
+

@@ -1,27 +1,118 @@
-from django.shortcuts import render
-from django.http.response import HttpResponse
-from .models import ContactUs, Rate
+from django.views.generic import (
+    ListView, CreateView, UpdateView, DetailView,
+    DeleteView, TemplateView
+)
+from django.urls import reverse_lazy
+from .models import ContactUs, Rate, Source
+from .forms import ContactUsForm, SourceForm, RateForm
 
 
-def hello_world(request):
-    return HttpResponse('Hello world!')
+class IndexView(TemplateView):
+    template_name = 'index.html'
 
 
-def rate_list(request):
-    '''
-    MVTU
-    V - view
-    U - urls
-    M - model
-    T - template
-    '''
-    rates = Rate.objects.all()
-    context = {
-        'rates': rates
-    }
-    return render(request, 'rate_list.html', context)
+class RateListView(ListView):
+    model = Rate
+    template_name = 'rate_list.html'
+    context_object_name = 'rates'
 
 
-def contact_us_list(request):
-    contacts = ContactUs.objects.all()
-    return render(request, 'contactus_list.html', {'contacts': contacts})
+class RateCreateView(CreateView):
+    model = Rate
+    form_class = RateForm
+    template_name = 'rate_create.html'
+    success_url = reverse_lazy('currency:rate_list')
+
+
+class RateUpdateView(UpdateView):
+    model = Rate
+    form_class = RateForm
+    template_name = 'rate_update.html'
+    success_url = reverse_lazy('currency:rate_list')
+
+
+class RateDetailView(DetailView):
+    model = Rate
+    template_name = 'rate_details.html'
+    context_object_name = 'rate'
+
+
+class RateDeleteView(DeleteView):
+    model = Rate
+    template_name = 'rate_delete.html'
+    success_url = reverse_lazy('currency:rate_list')
+
+
+class ContactUsListView(ListView):
+    model = ContactUs
+    template_name = 'contactus_list.html'
+    context_object_name = 'contacts'
+
+
+class ContactUsCreateView(CreateView):
+    model = ContactUs
+    form_class = ContactUsForm
+    template_name = 'contactus_create.html'
+    success_url = reverse_lazy('currency:contactus_list')
+    http_method_names = ['get', 'post']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+
+class ContactUsUpdateView(UpdateView):
+    model = ContactUs
+    form_class = ContactUsForm
+    template_name = 'contactus_update.html'
+    success_url = reverse_lazy('currency:contactus_list')
+
+
+class ContactUsDetailView(DetailView):
+    model = ContactUs
+    template_name = 'contactus_details.html'
+    context_object_name = 'contact'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contacts'] = ContactUs.objects.all()
+        return context
+
+
+class ContactUsDeleteView(DeleteView):
+    model = ContactUs
+    template_name = 'contactus_delete.html'
+    success_url = reverse_lazy('currency:contactus_list')
+
+
+class SourceListView(ListView):
+    model = Source
+    template_name = 'source_list.html'
+    context_object_name = 'sources'
+
+
+class SourceCreateView(CreateView):
+    model = Source
+    form_class = SourceForm
+    template_name = 'source_create.html'
+    success_url = reverse_lazy('currency:source_list')
+
+
+class SourceUpdateView(UpdateView):
+    model = Source
+    form_class = SourceForm
+    template_name = 'source_update.html'
+    success_url = reverse_lazy('currency:source_list')
+
+
+class SourceDetailView(DetailView):
+    model = Source
+    template_name = 'source_details.html'
+    context_object_name = 'source'
+
+
+class SourceDeleteView(DeleteView):
+    model = Source
+    template_name = 'source_delete.html'
+    success_url = reverse_lazy('currency:source_list')

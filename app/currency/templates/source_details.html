@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Source Details</h1>
+    <p>Source URL: {{ source.source_url }}</p>
+    <p>Name: {{ source.name }}</p>
+    <p>Telephone: {{ source.telephone }}</p>
+    <p>Address Change: {{ source.address_change }}</p>
+    <p></p>
+    <a href="{% url 'currency:source_list' %}">Back to Source List</a>
+{% endblock %}

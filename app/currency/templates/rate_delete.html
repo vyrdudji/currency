@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Rate
+{% endblock title %}
+
+{% block content %}
+    Are you sure you want to delete rate with id: {{ object.id }}?
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete!</button>
+    </form>
+    <a href="{% url 'currency:rate_list' %}">Back to Source List</a>
+
+{% endblock content %}

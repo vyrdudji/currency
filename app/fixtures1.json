@@ -1,0 +1,352 @@
+[
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 25.50,
+      "sell": 26.50,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "USD",
+      "source": "PrivatBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 30.00,
+      "sell": 31.00,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "EUR",
+      "source": "PrivatBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.090,
+      "sell": 0.095,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "HUF",
+      "source": "PrivatBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 3.30,
+      "sell": 3.40,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "CZK",
+      "source": "PrivatBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 2.80,
+      "sell": 2.90,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "SEK",
+      "source": "PrivatBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 1.30,
+      "sell": 1.35,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "GBP",
+      "source": "PrivatBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.35,
+      "sell": 0.38,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "RUB",
+      "source": "PrivatBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 26.00,
+      "sell": 27.00,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "USD",
+      "source": "OshadBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 31.50,
+      "sell": 32.50,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "EUR",
+      "source": "OshadBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.095,
+      "sell": 0.100,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "HUF",
+      "source": "OshadBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 3.30,
+      "sell": 3.40,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "CZK",
+      "source": "OshadBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 2.80,
+      "sell": 2.90,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "SEK",
+      "source": "OshadBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 1.30,
+      "sell": 1.35,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "GBP",
+      "source": "OshadBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.35,
+      "sell": 0.38,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "RUB",
+      "source": "OshadBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 26.50,
+      "sell": 27.50,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "USD",
+      "source": "RaiffeisenBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 31.00,
+      "sell": 32.00,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "EUR",
+      "source": "RaiffeisenBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.095,
+      "sell": 0.100,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "HUF",
+      "source": "RaiffeisenBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 3.30,
+      "sell": 3.40,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "CZK",
+      "source": "RaiffeisenBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 2.80,
+      "sell": 2.90,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "SEK",
+      "source": "RaiffeisenBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 1.30,
+      "sell": 1.35,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "GBP",
+      "source": "RaiffeisenBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.35,
+      "sell": 0.38,
+      "created": "2023-07-01T10:00:00Z",
+     "currency": "RUB",
+      "source": "RaiffeisenBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 26.20,
+      "sell": 27.20,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "USD",
+      "source": "UkrSibBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 31.50,
+      "sell": 32.50,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "EUR",
+      "source": "UkrSibBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.095,
+      "sell": 0.100,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "HUF",
+      "source": "UkrSibBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 3.30,
+      "sell": 3.40,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "CZK",
+      "source": "UkrSibBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 2.80,
+      "sell": 2.90,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "SEK",
+      "source": "UkrSibBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 1.30,
+      "sell": 1.35,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "GBP",
+      "source": "UkrSibBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.35,
+      "sell": 0.38,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "RUB",
+      "source": "UkrSibBank"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 26.30,
+      "sell": 27.30,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "USD",
+      "source": "PUMB"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 31.50,
+      "sell": 32.50,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "EUR",
+      "source": "PUMB"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "fields": {
+      "buy": 0.095,
+      "sell": 0.100,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "HUF",
+      "source": "PUMB"
+    }
+  },
+  {
+    "model": "currency.rate",
+"fields": {
+      "buy": 3.30,
+      "sell": 3.40,
+      "created": "2023-07-01T10:00:00Z",
+      "currency": "CZK",
+      "source": "PUMB"
+    }
+  },
+  {
+    "model": "currency.rate",
+  "fields": {
+    "buy": 2.80,
+    "sell": 2.90,
+    "created": "2023-07-01T10:00:00Z",
+    "currency": "SEK",
+    "source": "PUMB"
+  }
+},
+{
+  "model": "currency.rate",
+  "fields": {
+    "buy": 1.30,
+    "sell": 1.35,
+    "created": "2023-07-01T10:00:00Z",
+    "currency": "GBP",
+    "source": "PUMB"
+  }
+},
+{
+  "model": "currency.rate",
+  "fields": {
+    "buy": 0.35,
+    "sell": 0.38,
+    "created": "2023-07-01T10:00:00Z",
+    "currency": "RUB",
+    "source": "PUMB"
+  }
+}
+]
