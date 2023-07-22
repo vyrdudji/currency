@@ -33,3 +33,9 @@ class Source(models.Model):
     name = models.CharField(max_length=64)
     telephone = models.CharField(max_length=12)
     address_change = models.CharField(max_length=255)
+
+
+class RequestResponseLog(models.Model):
+    path = models.CharField(max_length=255)
+    request_method = models.CharField(max_length=10)
+    time = models.IntegerField()
