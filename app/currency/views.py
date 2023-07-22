@@ -5,6 +5,8 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from .models import ContactUs, Rate, Source
 from .forms import ContactUsForm, SourceForm, RateForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 class IndexView(TemplateView):
@@ -49,17 +51,37 @@ class ContactUsListView(ListView):
     context_object_name = 'contacts'
 
 
+# class ContactUsCreateView(CreateView):
+#     model = ContactUs
+#     form_class = ContactUsForm
+#     template_name = 'contactus_create.html'
+#     success_url = reverse_lazy('currency:contactus_list')
+#     http_method_names = ['get', 'post']
+#
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super().form_valid(form)
+
 class ContactUsCreateView(CreateView):
     model = ContactUs
     form_class = ContactUsForm
     template_name = 'contactus_create.html'
     success_url = reverse_lazy('currency:contactus_list')
-    http_method_names = ['get', 'post']
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
 
+        # Відправлення електронної пошти
+        subject = 'Нове повідомлення з форми зворотного звʼязку'
+        message = f'Від: {form.instance.email_from}\n' \
+                  f'Тема: {form.instance.subject}\n' \
+                  f'Повідомлення: {form.instance.message}'
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = ['vyrdudji7@gmail.com']  # Ваша адреса електронної пошти
+
+        send_mail(subject, message, from_email, recipient_list)
+
+        return response
 
 
 class ContactUsUpdateView(UpdateView):
