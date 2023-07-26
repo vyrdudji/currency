@@ -12,6 +12,8 @@
         <a href="{% url 'currency:password_change' %}">Change Password</a>
     {% else %}
         <!-- Якщо користувач не увійшов, покажемо лінку для входу (login) -->
-        <a href="{% url 'currency:login' %}">Login</a>
+        <a href="{% url 'account:login' %}">Login</a>
+        <!-- І лінку для реєстрації -->
+        <a href="{% url 'account:signup' %}">Register</a>
     {% endif %}
 </p>

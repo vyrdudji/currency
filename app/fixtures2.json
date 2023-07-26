@@ -1,6 +1,7 @@
 [
   {
     "model": "currency.source",
+	"pk": 1,
     "fields": {
       "source_url": "https://www.privatbank.ua/",
       "name": "PrivatBank",
@@ -10,6 +11,7 @@
   },
   {
     "model": "currency.source",
+	"pk": 2,
     "fields": {
       "source_url": "https://www.oshadbank.ua/",
       "name": "OshadBank",
@@ -19,6 +21,7 @@
   },
   {
     "model": "currency.source",
+	"pk": 3,
     "fields": {
       "source_url": "https://www.raiffeisenbank.ua/",
       "name": "RaiffeisenBank",
@@ -28,6 +31,7 @@
   },
   {
     "model": "currency.source",
+	"pk": 4,
     "fields": {
       "source_url": "https://www.ukrsibbank.com/",
       "name": "UkrSibBank",
@@ -37,6 +41,7 @@
   },
   {
     "model": "currency.source",
+	"pk": 5,
     "fields": {
       "source_url": "https://www.pumb.ua/",
       "name": "PUMB",

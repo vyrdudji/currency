@@ -1,7 +1,6 @@
 from django import forms
 from .models import Source, ContactUs, Rate
 from django.contrib.auth.forms import PasswordChangeForm
-
 from django.contrib.auth import get_user_model
 
 
