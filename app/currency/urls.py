@@ -61,7 +61,7 @@ urlpatterns = [
     path('source/delete/<int:pk>/', SourceDeleteView.as_view(), name='source_delete'),
 
     # Change password URLs
-    path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    # path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('accounts/logout/', logout_view, name='logout'),
     path('accounts/password_change/', CustomPasswordChangeView.as_view(), name='password_change'),
     path('accounts/password_change/done/', CustomPasswordChangeDoneView.as_view(), name='password_change_done'),
