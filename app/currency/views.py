@@ -39,7 +39,7 @@ class RateCreateView(CreateView):
 
 
 class RateUpdateView(UserPassesTestMixin, UpdateView):
-    login_url = '/accounts/login/'
+    login_url = reverse_lazy('currency:login')
     model = Rate
     form_class = RateForm
     template_name = 'rate_update.html'
@@ -50,14 +50,14 @@ class RateUpdateView(UserPassesTestMixin, UpdateView):
 
 
 class RateDetailView(LoginRequiredMixin, DetailView):
-    login_url = '/accounts/login/'
+    login_url = reverse_lazy('currency:login')
     model = Rate
     template_name = 'rate_details.html'
     context_object_name = 'rate'
 
 
 class RateDeleteView(UserPassesTestMixin, DeleteView):
-    login_url = '/accounts/login/'
+    login_url = reverse_lazy('currency:login')
     model = Rate
     template_name = 'rate_delete.html'
     success_url = reverse_lazy('currency:rate_list')
@@ -185,7 +185,7 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'registration/password_reset_confirm.html'
-    success_url = reverse_lazy('custom_password_reset_complete')
+    # success_url = reverse_lazy('custom_password_reset_complete')
 
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
