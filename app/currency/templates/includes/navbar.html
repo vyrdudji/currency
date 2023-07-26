@@ -3,4 +3,15 @@
     <a href="{% url 'currency:rate_list' %}">Rates</a>
     <a href="{% url 'currency:contactus_list' %}">Contact list</a>
     <a href="{% url 'currency:source_list' %}">Source List</a>
+
+    <!-- Перевіряємо, чи користувач увійшов (authenticated) -->
+    {% if user.is_authenticated %}
+        <!-- Якщо так, то показуємо лінку для виходу (logout) -->
+        <a href="{% url 'currency:logout' %}">Logout</a>
+        <!-- Також можемо показати лінку для зміни паролю -->
+        <a href="{% url 'currency:password_change' %}">Change Password</a>
+    {% else %}
+        <!-- Якщо користувач не увійшов, покажемо лінку для входу (login) -->
+        <a href="{% url 'currency:login' %}">Login</a>
+    {% endif %}
 </p>
