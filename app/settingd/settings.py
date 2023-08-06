@@ -40,9 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
 
     'currency',
+    'account',
 ]
+if DEBUG:
+    INTERNAL_IPS = ['127.0.0.1']
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'currency.middleware.RequestResponseTimeMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'settingd.urls'
@@ -147,3 +153,8 @@ EMAIL_USE_SSL = False
 LOGIN_REDIRECT_URL = 'currency:index'
 LOGOUT_REDIRECT_URL = 'currency:index'
 LOGIN_URL = 'login'
+
+AUTH_USER_MODEL = 'account.User'
+
+HTTP_PROTOCOL = 'http'
+DOMAIN = '127.0.0.1:8000'
