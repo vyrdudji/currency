@@ -2,11 +2,11 @@ from django.views.generic import CreateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse_lazy
-from uuid import UUID
 from django.shortcuts import render
 from django.views import View
+from django.utils.http import urlsafe_base64_decode
 
-from .forms import UserSignUpForm  # Якщо форма імпортується з .forms
+from .forms import UserSignUpForm
 
 User = get_user_model()
 
@@ -23,6 +23,7 @@ class UserActivateView(View):
         token = kwargs.get('token')
 
         try:
+<<<<<<< HEAD
             uid = UUID(uidb64)
         except ValueError:
             return render(request, 'registration/activation.html', {'activated': False})
@@ -37,3 +38,20 @@ class UserActivateView(View):
             return render(request, 'registration/activation.html', {'activated': True})
         else:
             return render(request, 'registration/activation.html', {'activated': False})
+=======
+            # decode uidb64 to user id
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = User.objects.get(pk=uid)
+
+            if default_token_generator.check_token(user, token):
+                user.is_active = True
+                if hasattr(user, 'profile'):
+                    user.profile.email_confirmed = True
+                user.save()
+                return render(request, 'registration/activation.html', {'activated': True})
+
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            pass
+
+        return render(request, 'registration/activation.html', {'activated': False})
+>>>>>>> homework14

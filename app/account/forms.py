@@ -31,11 +31,13 @@ class UserSignUpForm(forms.ModelForm):
             if cleaned_data['password1'] != cleaned_data['password2']:
                 raise forms.ValidationError('Passwords should match!')
 
-            phone = cleaned_data.get('phone')
-            if phone and not phone.isdigit():
-                raise forms.ValidationError('Phone number should contain only digits!')
-
         return cleaned_data
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if phone and not phone.isdigit():
+            raise forms.ValidationError('Phone number should contain only digits!')
+        return phone
 
     def save(self, commit=True):
         instance = super().save(commit=False)

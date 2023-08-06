@@ -16,7 +16,7 @@ class Rate(models.Model):
     sell = models.DecimalField(max_digits=6, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
     currency = models.PositiveSmallIntegerField(choices=RateCurrencyChoices.choices)
-    source = models.CharField(max_length=68)
+    source = models.ForeignKey('Source', on_delete=models.SET_NULL, null=True)
 
 
 class ContactUs(models.Model):
@@ -33,6 +33,9 @@ class Source(models.Model):
     name = models.CharField(max_length=64)
     telephone = models.CharField(max_length=12)
     address_change = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class RequestResponseLog(models.Model):
