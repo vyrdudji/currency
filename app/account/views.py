@@ -23,22 +23,6 @@ class UserActivateView(View):
         token = kwargs.get('token')
 
         try:
-<<<<<<< HEAD
-            uid = UUID(uidb64)
-        except ValueError:
-            return render(request, 'registration/activation.html', {'activated': False})
-
-        user = User.objects.filter(pk=uid).first()
-
-        if user is not None and default_token_generator.check_token(user, token):
-            user.is_active = True
-            if hasattr(user, 'profile'):
-                user.profile.email_confirmed = True
-            user.save()
-            return render(request, 'registration/activation.html', {'activated': True})
-        else:
-            return render(request, 'registration/activation.html', {'activated': False})
-=======
             # decode uidb64 to user id
             uid = urlsafe_base64_decode(uidb64).decode()
             user = User.objects.get(pk=uid)
@@ -54,4 +38,3 @@ class UserActivateView(View):
             pass
 
         return render(request, 'registration/activation.html', {'activated': False})
->>>>>>> homework14
