@@ -2,6 +2,8 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
 
 from .views import (
     IndexView,
@@ -72,3 +74,6 @@ urlpatterns = [
     path('accounts/reset/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('accounts/reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

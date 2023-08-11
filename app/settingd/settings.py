@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from django.urls import reverse_lazy
 from decouple import config
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'crispy_forms',
+    'crispy_bootstrap4',
 
     'currency',
     'account',
@@ -158,3 +161,9 @@ AUTH_USER_MODEL = 'account.User'
 
 HTTP_PROTOCOL = 'http'
 DOMAIN = '127.0.0.1:8000'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'currency', 'image')
