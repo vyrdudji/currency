@@ -1,6 +1,20 @@
 Django==4.2.2
 django-extensions
+django-debug-toolbar
+django-admin-rangefilter
+django-import-export
+django-storages
+django-filter
+djangorestframework
+djangorestframework-xml
+djangorestframework-yaml
+djangorestframework-simplejwt
+drf-yasg
+
 ipython
+boto3
+Celery
+requests
 
 #flake
 flake8
