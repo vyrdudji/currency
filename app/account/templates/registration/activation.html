@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Account Activation
+{% endblock title %}
+
+{% block content %}
+    <h2>Account Activation</h2>
+    {% if activated %}
+        <p>Your account has been successfully activated.</p>
+        <p>You can now <a href="{% url 'account:login' %}">login</a> with your credentials.</p>
+    {% else %}
+        <p>Sorry, the activation link is invalid or expired.</p>
+        <p>Please <a href="{% url 'account:signup' %}">register</a> again.</p>
+    {% endif %}
+{% endblock content %}

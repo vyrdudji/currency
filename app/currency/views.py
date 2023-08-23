@@ -9,7 +9,6 @@ from .forms import ContactUsForm, SourceForm, RateForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.views import (
-    # PasswordResetView,
     PasswordResetDoneView,
     PasswordResetConfirmView,
     PasswordResetCompleteView,
@@ -19,10 +18,20 @@ from django.contrib.auth.views import (
 from .forms import CustomPasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+
+
+class CrispyFormMixin:
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.add_input(Submit('submit', self.submit_label))
+        return form
 
 
 class RateListView(ListView):
@@ -31,19 +40,21 @@ class RateListView(ListView):
     context_object_name = 'rates'
 
 
-class RateCreateView(CreateView):
+class RateCreateView(CrispyFormMixin, CreateView):
     model = Rate
     form_class = RateForm
     template_name = 'rate_create.html'
     success_url = reverse_lazy('currency:rate_list')
+    submit_label = 'Create Rate'
 
 
-class RateUpdateView(UserPassesTestMixin, UpdateView):
+class RateUpdateView(CrispyFormMixin, UserPassesTestMixin, UpdateView):
     login_url = reverse_lazy('currency:login')
     model = Rate
     form_class = RateForm
     template_name = 'rate_update.html'
     success_url = reverse_lazy('currency:rate_list')
+    submit_label = 'Update Rate'
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -56,11 +67,12 @@ class RateDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'rate'
 
 
-class RateDeleteView(UserPassesTestMixin, DeleteView):
+class RateDeleteView(CrispyFormMixin, UserPassesTestMixin, DeleteView):
     login_url = reverse_lazy('currency:login')
     model = Rate
     template_name = 'rate_delete.html'
     success_url = reverse_lazy('currency:rate_list')
+    submit_label = 'Delete Rate'
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -72,33 +84,34 @@ class ContactUsListView(ListView):
     context_object_name = 'contacts'
 
 
-class ContactUsCreateView(CreateView):
+class ContactUsCreateView(CrispyFormMixin, CreateView):
     model = ContactUs
     form_class = ContactUsForm
     template_name = 'contactus_create.html'
     success_url = reverse_lazy('currency:contactus_list')
+    submit_label = 'Create Contact Us'
 
     def form_valid(self, form):
         response = super().form_valid(form)
 
-        # Відправлення електронної пошти
         subject = 'Нове повідомлення з форми зворотного звʼязку'
         message = f'Від: {form.instance.email_from}\n' \
                   f'Тема: {form.instance.subject}\n' \
                   f'Повідомлення: {form.instance.message}'
         from_email = settings.EMAIL_HOST_USER
-        recipient_list = ['vyrdudji7@gmail.com']  # Ваша адреса електронної пошти
+        recipient_list = ['vyrdudji7@gmail.com']
 
         send_mail(subject, message, from_email, recipient_list)
 
         return response
 
 
-class ContactUsUpdateView(UpdateView):
+class ContactUsUpdateView(CrispyFormMixin, UpdateView):
     model = ContactUs
     form_class = ContactUsForm
     template_name = 'contactus_update.html'
     success_url = reverse_lazy('currency:contactus_list')
+    submit_label = 'Update Contact Us'
 
 
 class ContactUsDetailView(DetailView):
@@ -112,10 +125,11 @@ class ContactUsDetailView(DetailView):
         return context
 
 
-class ContactUsDeleteView(DeleteView):
+class ContactUsDeleteView(CrispyFormMixin, DeleteView):
     model = ContactUs
     template_name = 'contactus_delete.html'
     success_url = reverse_lazy('currency:contactus_list')
+    submit_label = 'Delete Contact Us'
 
 
 class SourceListView(ListView):
@@ -124,18 +138,20 @@ class SourceListView(ListView):
     context_object_name = 'sources'
 
 
-class SourceCreateView(CreateView):
+class SourceCreateView(CrispyFormMixin, CreateView):
     model = Source
     form_class = SourceForm
     template_name = 'source_create.html'
     success_url = reverse_lazy('currency:source_list')
+    submit_label = 'Create Source'
 
 
-class SourceUpdateView(UpdateView):
+class SourceUpdateView(CrispyFormMixin, UpdateView):
     model = Source
     form_class = SourceForm
     template_name = 'source_update.html'
     success_url = reverse_lazy('currency:source_list')
+    submit_label = 'Update Source'
 
 
 class SourceDetailView(DetailView):
@@ -144,10 +160,11 @@ class SourceDetailView(DetailView):
     context_object_name = 'source'
 
 
-class SourceDeleteView(DeleteView):
+class SourceDeleteView(CrispyFormMixin, DeleteView):
     model = Source
     template_name = 'source_delete.html'
     success_url = reverse_lazy('currency:source_list')
+    submit_label = 'Delete Source'
 
 
 class CustomPasswordResetView(auth_views.PasswordResetView):
@@ -157,14 +174,14 @@ class CustomPasswordResetView(auth_views.PasswordResetView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['protocol'] = 'http'  # або 'https', залежно від веб-сайту
+        context['protocol'] = 'http'
         return context
 
 
 class CustomPasswordChangeView(UserPassesTestMixin, LoginRequiredMixin, PasswordChangeView):
     form_class = CustomPasswordChangeForm
     template_name = 'registration/change_password.html'
-    success_url = reverse_lazy('custom_password_change_done')  # Updated
+    success_url = reverse_lazy('custom_password_change_done')
 
     def test_func(self):
         return self.request.user.is_authenticated
@@ -185,7 +202,6 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'registration/password_reset_confirm.html'
-    # success_url = reverse_lazy('custom_password_reset_complete')
 
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):

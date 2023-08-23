@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <h1>Source Details</h1>
@@ -6,6 +7,10 @@
     <p>Name: {{ source.name }}</p>
     <p>Telephone: {{ source.telephone }}</p>
     <p>Address Change: {{ source.address_change }}</p>
+    <p>Logo: <img src="{{ source.logo.url }}"
+                         alt="Logo"
+                         width="{{ source.logo_width }}"
+                         height="{{ source.logo_height }}"></p>
     <p></p>
     <a href="{% url 'currency:source_list' %}">Back to Source List</a>
 {% endblock %}

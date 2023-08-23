@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     Create Source
@@ -6,10 +7,10 @@
 
 {% block content %}
     <h1>Create Source</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
     <p></p>
     <a href="{% url 'currency:source_list' %}">Back to Source List</a>
