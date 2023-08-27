@@ -20,6 +20,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from django.db.models import Q
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.contrib.auth.models import User
+from .filters import RateFilter, ContactUsFilter, SourceFilter
+import re
 
 
 class IndexView(TemplateView):
@@ -38,6 +44,26 @@ class RateListView(ListView):
     model = Rate
     template_name = 'rate_list.html'
     context_object_name = 'rates'
+    paginate_by = 10
+
+    def get_queryset(self):
+        rates = Rate.objects.all().order_by('created')
+
+        # Фільтрація
+        self.filter = RateFilter(self.request.GET, queryset=rates)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filter
+
+        # Отримуємо параметри фільтрації, окрім 'page'
+        context['filter_params'] = '&'.join(
+            f'{key}={value}'
+            for key, value in self.request.GET.items()
+            if key != 'page'
+        )
+        return context
 
 
 class RateCreateView(CrispyFormMixin, CreateView):
@@ -82,6 +108,27 @@ class ContactUsListView(ListView):
     model = ContactUs
     template_name = 'contactus_list.html'
     context_object_name = 'contacts'
+    paginate_by = 10
+
+    def get_queryset(self):
+        contacts = ContactUs.objects.all().order_by('id')
+
+        # Фільтрація
+        self.filter = ContactUsFilter(self.request.GET, queryset=contacts)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filter
+
+        # Отримуємо параметри фільтрації, окрім 'page'
+        context['filter_params'] = '&'.join(
+            f'{key}={value}'
+            for key, value in self.request.GET.items()
+            if key != 'page'
+        )
+        return context
+
 
 
 class ContactUsCreateView(CrispyFormMixin, CreateView):
@@ -136,6 +183,26 @@ class SourceListView(ListView):
     model = Source
     template_name = 'source_list.html'
     context_object_name = 'sources'
+    paginate_by = 10
+
+    def get_queryset(self):
+        sources = Source.objects.all().order_by('id')
+
+        # Фільтрація
+        self.filter = SourceFilter(self.request.GET, queryset=sources)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filter
+
+        # Отримуємо параметри фільтрації, окрім 'page'
+        context['filter_params'] = '&'.join(
+            f'{key}={value}'
+            for key, value in self.request.GET.items()
+            if key != 'page'
+        )
+        return context
 
 
 class SourceCreateView(CrispyFormMixin, CreateView):
@@ -206,3 +273,10 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
+
+
+@receiver(pre_save, sender=User)
+def clean_user_phone_number(sender, instance, **kwargs):
+    if hasattr(instance, 'phone') and instance.phone:
+        instance.phone = re.sub(r'\D', '', instance.phone)
+

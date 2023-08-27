@@ -7,6 +7,10 @@
 
 {% block content %}
     <h1>Rate List</h1>
+    <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Фільтрувати</button>
+    </form>
     <table>
         <tr>
             <th>ID</th>
@@ -41,12 +45,30 @@
         {% endfor %}
     </table>
 
+    <div class="pagination">
+    <span class="step-links">
+        {% if rates.has_previous %}
+            <a href="?page=1&{{ filter_params }}">&laquo; перша</a>
+            <a href="?page={{ rates.previous_page_number }}&{{ filter_params }}">попередня</a>
+        {% endif %}
+
+        <span class="current">
+            Сторінка {{ rates.number }} з {{ rates.paginator.num_pages }}.
+        </span>
+
+        {% if rates.has_next %}
+            <a href="?page={{ rates.next_page_number }}&{{ filter_params }}">наступна</a>
+            <a href="?page={{ rates.paginator.num_pages }}">остання &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+
     <hr>
 
     <h2>Create Rate</h2>
     <form method="post" action="{% url 'currency:rate_create' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.as_p|crispy }}
         <button type="submit">Create</button>
     </form>
 {% endblock content %}

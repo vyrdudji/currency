@@ -7,6 +7,10 @@
 
 {% block content %}
     <h1>Contact Us List</h1>
+    <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Фільтрувати</button>
+    </form>
     <table>
         <tr>
             <th>ID</th>
@@ -37,12 +41,30 @@
         {% endfor %}
     </table>
 
+    <div class="pagination">
+        <span class="step-links">
+            {% if contacts.has_previous %}
+                <a href="?page=1&{{ filter_params }}">&laquo; перша</a>
+                <a href="?page={{ rates.previous_page_number }}&{{ filter_params }}">попередня</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+            </span>
+
+            {% if contacts.has_next %}
+                <a href="?page={{ rates.next_page_number }}&{{ filter_params }}">наступна</a>
+                <a href="?page={{ contacts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
     <hr>
 
     <h2>Create Contact Us</h2>
     <form method="post" action="{% url 'currency:contactus_create' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.as_p|crispy }}
         <button type="submit">Submit</button>
     </form>
 {% endblock content %}

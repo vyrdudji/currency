@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 import os
+import re
 
 
 class Rate(models.Model):
@@ -44,34 +45,27 @@ class Source(models.Model):
     logo_height = models.PositiveIntegerField(default=32)
 
     def save(self, *args, **kwargs):
-        # Get the media directory where images are stored
         media_root = settings.MEDIA_ROOT
 
-        # Check if this instance has an ID (already saved)
         if self.pk:
-            # Get the current state of the instance
             original_instance = Source.objects.get(pk=self.pk)
 
-            # Check if the logo has changed
             if original_instance.logo != self.logo:
                 # Delete the old logo file
                 old_logo_path = os.path.join(media_root, str(original_instance.logo))
                 if os.path.exists(old_logo_path):
                     os.remove(old_logo_path)
 
-        # Continue with the normal save process
         super().save(*args, **kwargs)
 
         img = Image.open(self.logo.path)
         output_size = (self.logo_width, self.logo_height)
         img.thumbnail(output_size)
 
-        # Create the correct path for the image
         img_path = os.path.join(media_root, str(self.logo))
 
         img.save(img_path)
 
-        # Save the original image with a different name
         original_img_path = os.path.join(media_root, 'source_logos', 'original_' + os.path.basename(img_path))
         self.logo.storage.save(original_img_path, self.logo.storage.open(img_path))
 
@@ -83,3 +77,11 @@ class RequestResponseLog(models.Model):
     path = models.CharField(max_length=255)
     request_method = models.CharField(max_length=10)
     time = models.IntegerField()
+
+
+def clean_phone_number(sender, instance, **kwargs):
+    if instance.telephone:
+        instance.telephone = re.sub(r'\D', '', instance.telephone)
+
+
+models.signals.pre_save.connect(clean_phone_number, sender=Source)
