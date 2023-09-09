@@ -3,6 +3,10 @@
 
 {% block content %}
     <h1>Source List</h1>
+    <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Фільтрувати</button>
+    </form>
     <table>
         <tr>
             <th>Source URL</th>
@@ -21,7 +25,7 @@
                 <td><img src="{{ source.logo.url }}"
                          alt="Logo"
                          width="{{ source.logo_width }}"
-                         height="{{ source.logo_height }}"><td>
+                         height="{{ source.logo_height }}"></td>
                 <td>
                     <a href="{% url 'currency:source_details' source.pk %}">Details</a>
                     <a href="{% url 'currency:source_update' source.pk %}">Edit</a>
@@ -39,6 +43,24 @@
             </tr>
         {% endfor %}
     </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if sources.has_previous %}
+                <a href="?page=1&{{ filter_params }}">&laquo; перша</a>
+                <a href="?page={{ rates.previous_page_number }}&{{ filter_params }}">попередня</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ sources.number }} of {{ sources.paginator.num_pages }}.
+            </span>
+
+            {% if sources.has_next %}
+                <a href="?page={{ rates.next_page_number }}&{{ filter_params }}">наступна</a>
+                <a href="?page={{ sources.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
     <hr>
 
