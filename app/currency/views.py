@@ -28,6 +28,7 @@ from .filters import RateFilter, ContactUsFilter, SourceFilter
 import re
 
 
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
@@ -113,9 +114,13 @@ class ContactUsListView(ListView):
     def get_queryset(self):
         contacts = ContactUs.objects.all().order_by('id')
 
-        # Фільтрація
+        # Фільтрація і сортування
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            contacts = contacts.filter(Q(subject__icontains=search_query) | Q(message__icontains=search_query))
+
         self.filter = ContactUsFilter(self.request.GET, queryset=contacts)
-        return self.filter.qs
+        return self.filter.qs.order_by('-created_at')  # сортування за датою
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,7 +135,6 @@ class ContactUsListView(ListView):
         return context
 
 
-
 class ContactUsCreateView(CrispyFormMixin, CreateView):
     model = ContactUs
     form_class = ContactUsForm
@@ -140,16 +144,7 @@ class ContactUsCreateView(CrispyFormMixin, CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-
-        subject = 'Нове повідомлення з форми зворотного звʼязку'
-        message = f'Від: {form.instance.email_from}\n' \
-                  f'Тема: {form.instance.subject}\n' \
-                  f'Повідомлення: {form.instance.message}'
-        from_email = settings.EMAIL_HOST_USER
-        recipient_list = ['vyrdudji7@gmail.com']
-
-        send_mail(subject, message, from_email, recipient_list)
-
+        # Тут можна додати ваш код для Serializer.create()
         return response
 
 
