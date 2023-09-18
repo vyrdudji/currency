@@ -1,7 +1,14 @@
 from rest_framework import serializers
-from .models import Rate
+from .models import Source, ContactUs
 
-class RateSerializer(serializers.ModelSerializer):
+
+class SourceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Rate
+        model = Source
+        fields = '__all__'
+
+
+class ContactUsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactUs
         fields = '__all__'
