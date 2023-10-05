@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
+from . import views
 
 from .views import (
     IndexView,
@@ -37,10 +38,11 @@ def logout_view(request):
     logout(request)
     return redirect('currency:index')
 
+
 # Створення маршрутізатора та реєстрація ViewSets
 router = DefaultRouter()
-router.register(r'sources', SourceViewSet)
-router.register(r'contactus', ContactUsViewSet)
+# router.register(r'sources', SourceViewSet)
+# router.register(r'contactus', ContactUsViewSet)
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -80,6 +82,7 @@ urlpatterns = [
 
     # API URLs
     path('api/', include(router.urls)),
+    path('api/contact_us/', views.contact_us_api, name='contact_us_api'),
 ]
 
 if settings.DEBUG:

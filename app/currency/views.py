@@ -25,8 +25,12 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.contrib.auth.models import User
 from .filters import RateFilter, ContactUsFilter, SourceFilter
+from .serializers import ContactUsSerializer, SourceSerializer
 import re
 
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 class IndexView(TemplateView):
@@ -144,7 +148,23 @@ class ContactUsCreateView(CrispyFormMixin, CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        # Тут можна додати ваш код для Serializer.create()
+        serializer = ContactUsSerializer(data=form.cleaned_data)
+        if serializer.is_valid():
+            serializer.save()
+            messages.success(self.request, 'Контакт успішно створений.')
+        else:
+            # Виводимо помилки в консоль
+            print("Serializer errors: ", serializer.errors)
+
+            # Додаємо складнішу логіку обробки помилок
+            error_messages = []
+            for field, errors in serializer.errors.items():
+                for error in errors:
+                    error_messages.append(f"Поле {field}: {error}")
+
+            for error_message in error_messages:
+                messages.error(self.request, error_message)
+
         return response
 
 
@@ -275,3 +295,12 @@ def clean_user_phone_number(sender, instance, **kwargs):
     if hasattr(instance, 'phone') and instance.phone:
         instance.phone = re.sub(r'\D', '', instance.phone)
 
+
+@api_view(['POST'])
+def contact_us_api(request):
+    if request.method == 'POST':
+        serializer = ContactUsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
