@@ -25,7 +25,12 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.contrib.auth.models import User
 from .filters import RateFilter, ContactUsFilter, SourceFilter
+from .serializers import ContactUsSerializer, SourceSerializer
 import re
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 class IndexView(TemplateView):
@@ -113,9 +118,13 @@ class ContactUsListView(ListView):
     def get_queryset(self):
         contacts = ContactUs.objects.all().order_by('id')
 
-        # Фільтрація
+        # Фільтрація і сортування
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            contacts = contacts.filter(Q(subject__icontains=search_query) | Q(message__icontains=search_query))
+
         self.filter = ContactUsFilter(self.request.GET, queryset=contacts)
-        return self.filter.qs
+        return self.filter.qs.order_by('-created_at')  # сортування за датою
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,7 +139,6 @@ class ContactUsListView(ListView):
         return context
 
 
-
 class ContactUsCreateView(CrispyFormMixin, CreateView):
     model = ContactUs
     form_class = ContactUsForm
@@ -140,15 +148,22 @@ class ContactUsCreateView(CrispyFormMixin, CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        serializer = ContactUsSerializer(data=form.cleaned_data)
+        if serializer.is_valid():
+            serializer.save()
+            messages.success(self.request, 'Контакт успішно створений.')
+        else:
+            # Виводимо помилки в консоль
+            print("Serializer errors: ", serializer.errors)
 
-        subject = 'Нове повідомлення з форми зворотного звʼязку'
-        message = f'Від: {form.instance.email_from}\n' \
-                  f'Тема: {form.instance.subject}\n' \
-                  f'Повідомлення: {form.instance.message}'
-        from_email = settings.EMAIL_HOST_USER
-        recipient_list = ['vyrdudji7@gmail.com']
+            # Додаємо складнішу логіку обробки помилок
+            error_messages = []
+            for field, errors in serializer.errors.items():
+                for error in errors:
+                    error_messages.append(f"Поле {field}: {error}")
 
-        send_mail(subject, message, from_email, recipient_list)
+            for error_message in error_messages:
+                messages.error(self.request, error_message)
 
         return response
 
@@ -280,3 +295,12 @@ def clean_user_phone_number(sender, instance, **kwargs):
     if hasattr(instance, 'phone') and instance.phone:
         instance.phone = re.sub(r'\D', '', instance.phone)
 
+
+@api_view(['POST'])
+def contact_us_api(request):
+    if request.method == 'POST':
+        serializer = ContactUsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

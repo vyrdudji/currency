@@ -1,9 +1,11 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+from . import views
 
 from .views import (
     IndexView,
@@ -32,11 +34,15 @@ from .views import (
 
 app_name = 'currency'
 
-
 def logout_view(request):
     logout(request)
     return redirect('currency:index')
 
+
+# Створення маршрутізатора та реєстрація ViewSets
+router = DefaultRouter()
+# router.register(r'sources', SourceViewSet)
+# router.register(r'contactus', ContactUsViewSet)
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -62,7 +68,7 @@ urlpatterns = [
     path('source/details/<int:pk>/', SourceDetailView.as_view(), name='source_details'),
     path('source/delete/<int:pk>/', SourceDeleteView.as_view(), name='source_delete'),
 
-    # Change password URLs
+    # Authentication URLs
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('accounts/logout/', logout_view, name='logout'),
     path('accounts/password_change/', CustomPasswordChangeView.as_view(), name='password_change'),
@@ -73,6 +79,10 @@ urlpatterns = [
          name='password_reset_done'),
     path('accounts/reset/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('accounts/reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+    # API URLs
+    path('api/', include(router.urls)),
+    path('api/contact_us/', views.contact_us_api, name='contact_us_api'),
 ]
 
 if settings.DEBUG:
